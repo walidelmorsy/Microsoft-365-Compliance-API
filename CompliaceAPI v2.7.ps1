@@ -29,12 +29,12 @@ $GCCH = "https://manage.office365.us"
 $DOD = "https://manage.protection.apps.mil"
 
 # Script variables 01  --> Update everything in this section:
-$AppClientID = "334d8a9b-a4ee-4a09-94b4-8b55b44df984"
-$ClientSecretValue = "K287Q~Jgy6hS8kRowaKrXZpRGv9zbfTs-HljN"
-$TenantGUID = "11bff58f-ed40-4397-8385-8539b47e6810"
-$tenantdomain = "M365x676933.onmicrosoft.com"
-$OutputPath = "C:\APILogs\"
-$APIResource = $Enterprise
+$AppClientID = "Your Registered Azure APP ClientID here"
+$ClientSecretValue = "Your Registered Azure APP Secret Value here"
+$TenantGUID = "Your tenant GUID here"
+$tenantdomain = "yourtenant.onmicrosoft.com"
+$OutputPath = "You output folder path here - i.e. C:\APILogs\"
+$APIResource = $Enterprise  #(Your tenant endpoint URL choice here)
 
 
 # Script variables 02  ---> Don't Update anything here:
