@@ -191,11 +191,10 @@ function outputToFile($TotalContentPages, $JSONfilename, $Officetoken){
 #Collecting and Exporting Log data
 Write-Host -ForegroundColor Blue -BackgroundColor white "Checking output folder path"
 
-foreach($Subscription in $Subscriptions){
 $JSONfileName = getFileName $Date $Subscription $outputPath
 
 Write-Host -ForegroundColor Blue -BackgroundColor white "Collecting and Exporting Log data"
-#foreach($Subscription in $Subscriptions){
+foreach($Subscription in $Subscriptions){
     
     Write-Host -ForegroundColor Cyan "-> Collecting log data from '" -NoNewline
     Write-Host -ForegroundColor White -BackgroundColor DarkGray $Subscription -NoNewline
@@ -208,10 +207,3 @@ Write-Host -ForegroundColor Blue -BackgroundColor white "Collecting and Exportin
     Write-Host -ForegroundColor Cyan "': " -NoNewline
     outputToFile $logs $JSONfilename $OfficeToken
 }
-
-
-
-
-
-
-
