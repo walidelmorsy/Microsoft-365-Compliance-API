@@ -1,8 +1,8 @@
 
 # Compliance-API Script
-A script which I've created to help with Microsoft 365 Compliance audit activities via Office 365 Management API.
+A script which we have created to help with Microsoft 365 Compliance audit activities via Office 365 Management API.
 
-> **NOTE**: Use these scripts at your own risk. Ensure you review the entire script and understand exactly what it does before using.  Test the scripts within a demo tenant or test environment before using in production.  I am not responsible for any result of using these scripts.
+> **NOTE**: Use these scripts at your own risk. Ensure you review the entire script and understand exactly what it does before using.  Test the scripts within a demo tenant or test environment before using in production.  We are not responsible for any result of using these scripts.
 
 #Disclaimer
 
