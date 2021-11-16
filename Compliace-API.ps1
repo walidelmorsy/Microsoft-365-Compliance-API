@@ -189,7 +189,6 @@ function outputToFile($TotalContentPages, $JSONfilename, $Officetoken){
 
 #Collecting and Exporting Log data
 Write-Host -ForegroundColor Blue -BackgroundColor white "Checking output folder path"
-
 $JSONfileName = getFileName $Date $Subscription $outputPath
 
 Write-Host -ForegroundColor Blue -BackgroundColor white "Collecting and Exporting Log data"
@@ -200,6 +199,7 @@ foreach($Subscription in $Subscriptions){
     Write-Host -ForegroundColor Cyan "': " -NoNewline
     $logs = buildLog $BaseURI $Subscription $TenantGUID $OfficeToken
 
+    $JSONfilename = ($OutputPath + $Subscription + "_" + $Date + ".json")
   
     Write-host -ForegroundColor Cyan "---> Exporting log data to '" -NoNewline
     Write-Host -ForegroundColor White -BackgroundColor DarkGray $JSONfilename -NoNewline
