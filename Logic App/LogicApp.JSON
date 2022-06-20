@@ -1,0 +1,299 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "For_each": {
+                "actions": {
+                    "Condition": {
+                        "actions": {
+                            "Send_Data": {
+                                "inputs": {
+                                    "body": "@{JSON(body('HTTP'))}",
+                                    "headers": {
+                                        "Log-Type": "AuditAzureActiveDirectory"
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azureloganalyticsdatacollector']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/api/logs"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "equals": [
+                                        "@item()['ContentType']",
+                                        "Audit.AzureActiveDirectory"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {
+                            "HTTP": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "If"
+                    },
+                    "Condition_2": {
+                        "actions": {
+                            "Send_Data_2": {
+                                "inputs": {
+                                    "body": "@{JSON(body('HTTP'))}",
+                                    "headers": {
+                                        "Log-Type": "AuditSharePoint"
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azureloganalyticsdatacollector']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/api/logs"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "equals": [
+                                        "@item()['ContentType']",
+                                        "Audit.SharePoint"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {
+                            "Condition": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "If"
+                    },
+                    "Condition_3": {
+                        "actions": {
+                            "Send_Data_3": {
+                                "inputs": {
+                                    "body": "@{JSON(body('HTTP'))}",
+                                    "headers": {
+                                        "Log-Type": "AuditExchange"
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azureloganalyticsdatacollector']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/api/logs"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "equals": [
+                                        "@item()['ContentType']",
+                                        "Audit.Exchange"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {
+                            "Condition_2": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "If"
+                    },
+                    "Condition_4": {
+                        "actions": {
+                            "Send_Data_4": {
+                                "inputs": {
+                                    "body": "@{JSON(body('HTTP'))}",
+                                    "headers": {
+                                        "Log-Type": "AuditGeneral"
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azureloganalyticsdatacollector']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/api/logs"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "equals": [
+                                        "@item()['ContentType']",
+                                        "Audit.General"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {
+                            "Condition_3": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "If"
+                    },
+                    "Condition_5": {
+                        "actions": {
+                            "Send_Data_5": {
+                                "inputs": {
+                                    "body": "@{JSON(body('HTTP'))}",
+                                    "headers": {
+                                        "Log-Type": "DlpAll"
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azureloganalyticsdatacollector']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/api/logs"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "equals": [
+                                        "@item()['ContentType']",
+                                        "DLP.All"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {
+                            "Condition_4": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "If"
+                    },
+                    "HTTP": {
+                        "inputs": {
+                            "authentication": {
+                                "audience": "https://manage.office.com",
+                                "clientId": "<ClientID>",
+                                "secret": "<Secret>",
+                                "tenant": "<TenantID>",
+                                "type": "ActiveDirectoryOAuth"
+                            },
+                            "headers": {
+                                "content-type": "application/json"
+                            },
+                            "method": "GET",
+                            "uri": "@items('For_each')?['contentUri']"
+                        },
+                        "runAfter": {},
+                        "type": "Http"
+                    }
+                },
+                "foreach": "@variables('TestObject')",
+                "runAfter": {
+                    "Initialize_variable_2": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "Initialize_variable_2": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "TestObject",
+                            "type": "array",
+                            "value": "@triggerBody()"
+                        }
+                    ]
+                },
+                "runAfter": {},
+                "type": "InitializeVariable"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {
+                        "items": {
+                            "properties": {
+                                "clientId": {
+                                    "type": "string"
+                                },
+                                "contentCreated": {
+                                    "type": "string"
+                                },
+                                "contentExpiration": {
+                                    "type": "string"
+                                },
+                                "contentId": {
+                                    "type": "string"
+                                },
+                                "contentType": {
+                                    "type": "string"
+                                },
+                                "contentUri": {
+                                    "type": "string"
+                                },
+                                "tenantId": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "tenantId",
+                                "clientId",
+                                "contentType",
+                                "contentId",
+                                "contentUri",
+                                "contentCreated",
+                                "contentExpiration"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {
+                "azureloganalyticsdatacollector": {
+                    "connectionId": "/subscriptions/b3959c3c-6a7a-477c-9908-830781ad1f3b/resourceGroups/Office365ManagementApiza/providers/Microsoft.Web/connections/azureloganalyticsdatacollector",
+                    "connectionName": "azureloganalyticsdatacollector",
+                    "id": "/subscriptions/b3959c3c-6a7a-477c-9908-830781ad1f3b/providers/Microsoft.Web/locations/southafricanorth/managedApis/azureloganalyticsdatacollector"
+                }
+            }
+        }
+    }
+}

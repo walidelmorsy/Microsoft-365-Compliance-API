@@ -4,6 +4,11 @@ A script which we have created to help with Microsoft 365 Compliance audit activ
 
 > **NOTE**: Use these scripts at your own risk. Ensure you review the entire script and understand exactly what it does before using.  Test the scripts within a demo tenant or test environment before using in production.  We are not responsible for any result of using these scripts.
 
+## Logic App to process Webhook Subscriptions.
+
+When you create the Blob Subscription you can 
+
+
 #Disclaimer
 
 This Sample Code is provided for the purpose of illustration only and is not intended to be used in a production environment.  
