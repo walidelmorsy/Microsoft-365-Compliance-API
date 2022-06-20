@@ -13,7 +13,7 @@ Here is a sample logic App Which Processes the Blob and sends it to a Log Analyt
 
 Here is another sample where we use the PS cmdlets either you could use the Security & Compliance PowerShell modules or the Exchange  PowerShell module to use a command and store the output in Log Analytics.
 
-
+There is also a helpful Post man collection here [PostmanCollection](https://documenter.getpostman.com/view/8229827/SVmr1M6o)
 #Disclaimer
 
 This Sample Code is provided for the purpose of illustration only and is not intended to be used in a production environment.  

@@ -10,7 +10,7 @@ Connect-ExchangeOnline -Credential $CrescentCred
 
 # you can customize this line how you like with extra parameters such as -Startdaye -EndDate Pagesize is default to 1000
 
-$DLPdetailreport=Get-DlpDetailReport -PageSize 5000|Select *| ConvertTo-Json
+$DLPdetailreport=Get-DlpDetailReport -PageSize 5000| Select *| ConvertTo-Json
 write-output "Got DLP Report"
 $CustomerId = "InputWorkspaceID"
 $SharedKey = "InputSharedKey"
