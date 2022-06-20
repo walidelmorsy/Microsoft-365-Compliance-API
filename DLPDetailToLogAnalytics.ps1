@@ -1,13 +1,15 @@
 # This is an example of using the Get-DLPdetailreport commandlet in the ExchangeOnline Management shell
 
 # We then send the Data to Log Analytics.
-Get-DLPdetailreport -startdate "1/06/2022'-EndDate
+Get-DLPdetailreport 
+#specify your Exchange Admin credentials in the Automation account
 
-
-#specify your Exchange Admin credentials in the Automation account.
 $CrescentCred = Get-AutomationPSCredential -Name "m365demoaccount"
+
 Connect-ExchangeOnline -Credential $CrescentCred
+
 # you can customize this line how you like with extra parameters such as -Startdaye -EndDate Pagesize is default to 1000
+
 $DLPdetailreport=Get-DlpDetailReport -PageSize 5000|Select *| ConvertTo-Json
 write-output "Got DLP Report"
 $CustomerId = "InputWorkspaceID"
@@ -28,10 +30,10 @@ $Headers = @{
     "x-ms-date"            = [DateTime]::UtcNow.ToString("r");
     "time-generated-field" = $(Get-Date)
 }
-write-output "Connecting & sending data"
+write-output "Connecting and sending data"
 $Response = Invoke-WebRequest -Uri $Uri -Method Post -ContentType "application/json" -Headers $Headers -Body $DLPdetailreport -UseBasicParsing
 if ($Response.StatusCode -eq 200) {
-    Write-Output "Logs are Successfully Stored in Log Analytics Workspace" $Response.co 
+    Write-Output "Logs are Successfully Stored in Log Analytics Workspace" $Response.code
 }
 write-output "Finished" $Response.StatusCode
 Write-Output $Response
